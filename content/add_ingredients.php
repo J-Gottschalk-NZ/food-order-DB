@@ -96,27 +96,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $product_error = "error-text";
             $product_field = "form-error";
         }
-       
-        // **** If we don't have errors, update the DB and move on... ****
-        if($has_errors != "yes") {
-               
-            // get ID (next autoincrement value)
-            $recordID_sql = "SELECT AUTO_INCREMENT
-            FROM INFORMATION_SCHEMA.TABLES
-            WHERE table_name = 'classsession'";
-            $recordID_query = mysqli_query($dbconnect, $recordID_sql);
-            $recordID_rs = mysqli_fetch_assoc($recordID_query);
-                   
-            $classID = $recordID_rs["AUTO_INCREMENT"];
-
-            // Insert class session details...
-
-            $add_class_session = mysqli_query($dbconnect, "INSERT INTO `classsession` (`ClassSessionID`, `TeacherID`, `YearLevel`, `Date`, `Period`) VALUES ($classID, $teacherID, $year_level, '$date', $period); ");
-
-            // Get ClassID
-            $add_food_order = mysqli_query($dbconnect, "INSERT INTO `food_order` (`OrderID`, `LastName`, `FirstName`, `Product`, `ClassSessionID`) VALUES (NULL, '$last', '$first', '$product', $classID); ");
-
-        }
 
 } // end code that executes when 'submit' button pressed
 
@@ -313,7 +292,37 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
     <br /><br />
 
 
-                 
+    <!--  Recipet / ingredients section goes here -->
+    
+    <p><b>Please enter your ingredients / specific equipment followed by the amount needed</b></p>
+
+    <!-- ingredient dropdown -->
+    <select name="ingredient">
+
+    <option value="" selected>Choose...</option>
+
+    <!--- get options from database -->
+    <?php 
+
+    do {
+        ?>
+    <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." (".$ingredient_rs['Units'].")"; ?></option>
+
+    <?php
+        
+    }   // end genre do loop
+
+    while ($ingredient_rs=mysqli_fetch_assoc($ingredient_query))
+
+    ?>
+
+    </select>
+
+    <input class="amount-field" type="text" name="amount" value="" placeholder="amount" />
+    
+
+    <!--  End recipe / ingredients section-->
+                
     
                 <!-- Submit Button -->
     <p>
