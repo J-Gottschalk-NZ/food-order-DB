@@ -1,0 +1,328 @@
+body {
+    margin: auto;
+    padding: 50px;
+    color: #000;
+    font-family: 'Lato', sans-serif;
+}
+
+/* Box (for corners & padding) */
+.box {
+    padding-left: 20px;
+    /* border-radius: 10px; */
+    background-color: #ddd;
+}
+
+
+/* Set up grids... specifics */
+
+/*  #### Grid for Main page #### */
+
+
+.wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "banner nav"
+        "main main"
+        "footer footer";
+        grid-gap: 4px;
+    
+}
+
+@media only screen and (max-width: 1100px) {
+    .wrapper{
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "banner"
+        "nav"
+        "main"
+        "footer";
+    }
+}
+
+.banner {
+    grid-area: banner;
+}
+
+.nav {
+    grid-area: nav;
+    background-color: #DDD;  /* silver */
+    font-size: 150%;
+    padding: 20px;
+    vertical-align: middle;
+    border: solid 1px;
+}
+
+.main {
+    grid-area: main;
+    background-color: #a6ddcf;  /* very pale grey */
+    border: solid 1px #CCC;
+}
+
+
+.footer {
+    grid-area: footer;
+    text-align: right;
+    padding: 20px;
+}
+
+
+/* Make navigation responsive... */
+
+@media only screen and (max-width: 900px) {
+    .linkwrapper{
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+        "commonsearches commonsearches"
+        "topsearch topadmin"
+        ;
+    }
+    
+    .commonsearches {
+        text-align: left;
+    }
+    
+    .topsearch {
+        text-align: left;
+    }
+    
+    .topadmin {
+        text-align: right;
+    }
+    
+}
+
+/* ### Additional div styling (put colours / corners here) */
+
+
+/* Area colouring... */
+
+/* logo, banner and footer background are the same */
+.banner, .footer {
+     background-color: #888; /* dark grey */
+}
+
+/* Set font on dark areas to white */
+.banner, .side, .footer {
+    color: #fff;
+}
+
+/* #### Links Styling  #### */
+
+a.heading:link, a.heading:visited {color: #fff; 
+text-decoration: none; }
+
+/* Navigation Links */
+a.topnav {font-weight: bold;}
+a.topnav:link, a.topnav:visited {color: #007c72;} /*dark teal */
+a.topnav:hover {color: #707a00; text-decoration: none;} 
+
+
+/* links in page */
+a {font-weight: bold;}
+a:link{color: #007c72;} /* dark teal */
+a:visited{color: #222;} /* dark grey */
+a:hover{color: #707a00;}    /* Dark Green*/
+
+/* #### Headings / text styling #### */
+h1, h2, h3, h4 {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.sub_heading {
+    font-family: 'Ubuntu', sans-serif;
+    color: #593849; /* purple */
+    font-weight: bold;
+}
+
+hr {
+    width: 95%;
+}
+
+p {
+    width: 90%;
+}
+
+/* ### Form / Search  Styling #### */
+
+form {
+    max-width: 750px;
+    margin: auto;
+}
+
+.search {
+    background:#fff;
+    width: 200px;
+}
+
+.submit::-moz-focus-inner { 
+    border: 0;
+}
+
+
+.submit {
+    font-family: FontAwesome, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    position:relative;
+    width: 45px;
+    font-size: 14px;
+    
+    left:-5px;
+    background-color: #636263; 
+    color:#d6d3d7;
+    border: 1px solid #000;
+    border-radius: 0 5px 5px 0;   
+    display: inline-block;
+    padding: 10px;
+}
+
+
+input[type="submit"]:hover {
+    background-color: #ffd575;
+}
+
+
+input {
+    font-size: 14px;
+    padding: 10px;
+    display: inline-block;
+    border: 1px solid #000;
+    box-sizing: border-box; 
+}
+
+input.short {
+    width: 100px;
+}
+
+.quicksearch {
+    border-radius: 5px 0 0 5px; 
+    display: inline-block;
+}
+
+/* ##### Results styling, includes 'tags' buttons ##### */
+.results {
+    background-color: #f7f7f7;
+    border: solid 1px #00c1b4;
+    padding: 10px;
+    
+    margin-right: 20px;
+    border-radius: 20px;
+}
+
+.tag {
+    background-color: bisque;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;    
+    border: solid 1px #000;
+    border-radius: 5px;
+}
+
+.about {
+    background-color: bisque;
+    border: solid 1px #d37000;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 20px;
+    
+}
+
+.error {
+    background-color: #ffcece;
+    color: #721a1a;
+    border-radius: 10px;
+    padding: 10px;
+    border: solid 1px #721a1a;
+}
+
+/* editing tools formatting */
+.edit-tools {
+    text-align: right;
+    padding-right: 20px;
+}
+
+/* Form Formatting css */
+
+/* make height of drop downs slightly larger */
+select {
+    height: 40px;
+    padding: 5px;
+}
+
+/* controls input field on autocomplete boxes (pink for an error, white for OK) */
+input.tag-error[type=text] {
+    background-color: #ff9e9e;
+}
+
+input.tag-ok[type=text] {
+    background-color: #fff;
+}
+
+/* field backgrounds */
+.form-ok {
+    background-color:#fff;
+}
+
+.form-error {
+    background-color: #ff9e9e;
+}
+
+/* error messages */
+.no-error {
+    display: none;
+}
+
+.error-text {
+    color: darkred;
+}
+
+textarea,
+input[type=text] {
+    font-family: 'Lato', sans-serif;
+    padding: 10px;
+    border-width: 1px;
+    margin: auto;
+}
+
+
+.add-field {
+    width: 90%;
+
+}
+
+.amount-field {
+    width: 100px;
+
+}
+
+.submit-size {
+    width: 100%;
+}
+
+.gender {
+    width: 90%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
