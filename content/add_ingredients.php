@@ -3,14 +3,15 @@
 // Initialise variables
 $classID = $_SESSION['Order_Session'];
 
+$ingredient = "";
+$amount = "";
+
 $ingredient_error = $amount_error = "";
 
 $has_errors = "no";
 
 // Code below excutes when the form is submitted...
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //! **** WE NEED TO SANITY CHECK $FN
-    $fn=$_POST["fn"]; 
+    $fn=$_REQUEST["fn"]; 
     if ($fn == "add_order") {
      // Get data from form...
 
@@ -54,8 +55,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             header('Location: index.php?page=order_complete');
     }
+    elseif ($fn=="delingredient")
+    {
+            if  (is_numeric($_REQUEST["recipeingredientID"]))
+            {
+                $recipeingredient=$_REQUEST["recipeingredientID"];
+                $q=mysqli_query($dbconnect,"delete from recipe_ingredients where OrderID=$classID and Recipe_IngredientsID=$recipeingredient");
+                            }
+            else {
+                echo "Hacker Attempt....";
+                die();
+            }
+    }
 
-} // end code that executes when 'submit' button pressed
+// } // end code that executes when 'submit' button pressed
 
 // get ingredients from database for form dropdowns...
 $get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredients`.`IngredientID` = `recipe_ingredients`.`IngredientID`) WHERE OrderID = $classID";
@@ -96,7 +109,7 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
     </div>
     <!-- ingredient dropdown -->
-    <select name="ingredient" class="<?php $ingrdient_field ?>">
+    <select name="ingredient" class="<?php $ingredient_field ?>">
 
     <?php
         if($ingredient="") {
@@ -145,14 +158,18 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
     <!-- Loop through ingredients in order so far... -->
 
     <?php
-   
+    
    echo "<table>";
+
    foreach ($get_all_rs as $row) {
         echo "<tr><td>".
             $row["Ingredient"].
             "</td><td>".
             $row["Quantity"]." ".
             $row["Units"].
+            "</td><td>".
+            "<a href=".htmlspecialchars($_SERVER["PHP_SELF"]).
+            "?page=add_ingredients&fn=delingredient&recipeingredientID=".$row["Recipe_IngredientsID"].">Delete</a>".
             "</td></tr>";
     }
     echo "</table>";

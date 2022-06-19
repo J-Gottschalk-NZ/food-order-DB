@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // if date is not chosen...
         if ($date == "") {
-            $has_errors == "yes";
+            $has_errors = "yes";
             $date_field = "form-error";
         }
 
