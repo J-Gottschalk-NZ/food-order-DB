@@ -8,11 +8,12 @@ $get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredien
 $get_all_query = mysqli_query($dbconnect, $get_all_sql);
 $get_all_rs = mysqli_fetch_all($get_all_query, MYSQLI_ASSOC);
 
+// echo "<pre>";
+// print_r ($get_all_rs);
+// echo "</pre>";
+
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
-
-    if (isset($_POST['add_order'])) {
-     // Get data from form...
 
         if (is_numeric($_POST['ingredient'])) 
             $ingredient=$_POST['ingredient'];
@@ -30,24 +31,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 (OrderID, IngredientID,Quantity)
             values
                 ($classID,$ingredient,$amount)");
-    }  
-
-    elseif (isset($_POST['finalise_order']))
-    {
-        $q=mysqli_query($dbconnect,
-            "update foodorder set Food_Order_Status='complete' where orderID=$classID");
-
-            echo "We are done here.";
-            die();
-    }
 
 } // end code that executes when 'submit' button pressed
 
 // get ingredients from database for form dropdowns...
-$get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredients`.`IngredientID` = `recipe_ingredients`.`IngredientID`) WHERE OrderID = $classID";
-$get_all_query = mysqli_query($dbconnect, $get_all_sql);
-$get_all_rs = mysqli_fetch_all($get_all_query, MYSQLI_ASSOC);
-
 
 $ingredient_sql="SELECT * FROM `ingredients` ORDER BY `ingredients`.`Ingredient` ASC ";
 $ingredient_query=mysqli_query($dbconnect, $ingredient_sql);
@@ -116,7 +103,7 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
     
 
 
-    <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_ingredients");?>" enctype="multipart/form-data" name="finalise_order" id="add_order">
+    <form autocomplete="off" method="post" action="order_complete">
     
                 <!-- Submit Button -->
     <p>

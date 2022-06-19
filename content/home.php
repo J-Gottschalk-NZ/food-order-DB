@@ -100,21 +100,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // **** If we don't have errors, update the DB and move on... ****
         if($has_errors != "yes") {
                
-            // get ID (next autoincrement value)
-            $recordID_sql = "SELECT AUTO_INCREMENT
-            FROM INFORMATION_SCHEMA.TABLES
-            WHERE table_name = 'classsession'";
-            $recordID_query = mysqli_query($dbconnect, $recordID_sql);
-            $recordID_rs = mysqli_fetch_assoc($recordID_query);
-                   
-            $classID = $recordID_rs["AUTO_INCREMENT"];
-
-            // Insert class session details...
-
-            $add_class_session = mysqli_query($dbconnect, "INSERT INTO `classsession` (`ClassSessionID`, `TeacherID`, `YearLevel`, `Date`, `Period`) VALUES ($classID, $teacherID, $year_level, '$date', $period); ");
+            $recordID_query = mysqli_query($dbconnect, 
+                    "INSERT INTO `classsession` (`ClassSessionID`,`TeacherID`, `YearLevel`, `Date`, `Period`) VALUES (NULL,$teacherID, $year_level, '$date', $period);");
+            
+            $classID=$dbconnect->insert_id;
+            
 
             // Get ClassID
             $add_food_order = mysqli_query($dbconnect, "INSERT INTO `food_order` (`OrderID`, `LastName`, `FirstName`, `Product`, `ClassSessionID`) VALUES (NULL, '$last', '$first', '$product', $classID); ");
+
+            // Go to order_ingredients page 
+            $_SESSION['Order_Session'] = $classID;
+            header('Location: index.php?page=add_ingredients');
 
         }
 

@@ -8,6 +8,10 @@ $get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredien
 $get_all_query = mysqli_query($dbconnect, $get_all_sql);
 $get_all_rs = mysqli_fetch_all($get_all_query, MYSQLI_ASSOC);
 
+// echo "<pre>";
+// print_r ($get_all_rs);
+// echo "</pre>";
+
 // Code below excutes when the form is submitted...
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
 
@@ -44,10 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } // end code that executes when 'submit' button pressed
 
 // get ingredients from database for form dropdowns...
-$get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredients`.`IngredientID` = `recipe_ingredients`.`IngredientID`) WHERE OrderID = $classID";
-$get_all_query = mysqli_query($dbconnect, $get_all_sql);
-$get_all_rs = mysqli_fetch_all($get_all_query, MYSQLI_ASSOC);
-
 
 $ingredient_sql="SELECT * FROM `ingredients` ORDER BY `ingredients`.`Ingredient` ASC ";
 $ingredient_query=mysqli_query($dbconnect, $ingredient_sql);
