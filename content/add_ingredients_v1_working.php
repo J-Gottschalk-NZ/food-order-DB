@@ -5,10 +5,10 @@ $classID = $_SESSION['Order_Session'];
 
 $fn = "";
 
-$ingredient = "start";
+$ingredient = "";
 $ingredient_name = "";
 
-$amount = 0;
+$amount = "";
 $next_item = "yes";
 
 $ing_amount_error = "";
@@ -17,7 +17,6 @@ $has_errors = "no";
 
 
 // Code below excutes when the form is submitted...
-
     $fn=$_REQUEST["fn"]; 
 
     if ($fn == "add_order") {
@@ -35,9 +34,6 @@ $has_errors = "no";
         $ingredient_name = $ingredient_name_rs["Ingredient"];
      }
 
-     echo "Ingredient Index: ".$ingredient."<br />";
-     echo "Ingredient Name: ".$ingredient_name."<br />";
-
         if (is_numeric($ingredient) == FALSE OR 
            $ingredient == "")
            {
@@ -50,7 +46,7 @@ $has_errors = "no";
         $amount = ($_POST['amount']);
 
         if (is_numeric($amount)== FALSE OR 
-            $amount == "" OR $amount <= 0) 
+            $amount == "") 
         
             {
                 $has_errors = "yes";
@@ -112,10 +108,11 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 <h2>Order your Ingredients</h2>
             
 <p>
-    Please order your ingredients (ie: ingredient and the amount).  Note the UNITS (mostly g / mL)!!
+    Please order your ingredients.  Note the UNITS (mostly g / mL)!!
 </p>
 
-
+     
+    <p><b>Please enter your ingredients / specific equipment followed by the amount needed</b></p>
 
     <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_ingredients");?>" enctype="multipart/form-data" name="add_order" id="add_order">
     <input type="hidden" name="fn" value="add_order">
@@ -126,7 +123,7 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
     <div class="<?php echo $ing_amount_error ?>">
 
     <?php 
-        if($ingredient == "" and (is_numeric($amount) == FALSE)) {
+        if($ingredient == "" and $amount == "") {
             ?>
             Please choose an ingredient AND an amount
             <?php
@@ -138,26 +135,31 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
             <?php
         }
 
+        elseif ($amount == "") {
+
+            ?> 
+            Please choose an amount 
+            <?php
+        }
 
         elseif (is_numeric($amount) == FALSE)
         {
             ?>
-            Your amount MUST be a number only.  It can't be blank / contain text
+            Your amount MUST be a number only (no text)
             <?php
         }
 
     ?>
 
     </div>
-
     <!-- ingredient dropdown -->
-    <select name="ingredient" class="<?php echo $ingredient_field ?> js-example-basic-single" id="ingredient">
+    <select name="ingredient" class="<?php echo $ingredient_field ?>">
 
     <?php
         if($ingredient="" OR $next_item="yes") {
     ?>
 
-    <option value="" selected>Choose an ingredient...</option>
+    <option value="" selected>Choose...</option>
 
     <?php } 
     
@@ -185,7 +187,7 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
     </select>
 
-    <input class="amount-field <?php echo $amount_field?>" type="text" value="<?php echo $amount ?>" name="amount" placeholder="amount" />
+    <input class="amount-field <?php echo $amount_field?>" type="text" value="<?php $amount ?>" name="amount" placeholder="amount" />
 
     <button  type="submit" name="add" id="add">Add More</button>
     

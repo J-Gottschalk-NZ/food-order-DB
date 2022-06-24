@@ -111,6 +111,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Go to order_ingredients page 
             $_SESSION['Order_Session'] = $classID;
+            
             header('Location: index.php?page=add_ingredients');
 
         }
@@ -141,6 +142,8 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 <p>
     Please fill in the form below to order food for an upcoming practical.  If you are a teacher / admin, log in above for more options.
 </p>
+    <!-- Extra field with fn defined so we don't get an error message when users go from this form to the ordering form -->
+    <input type="hidden" name="fn" value = "">
 
     <div class="<?php echo $first_error; ?>">
         Please type in your first name
