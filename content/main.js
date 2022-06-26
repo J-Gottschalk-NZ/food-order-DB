@@ -4,6 +4,7 @@ const searchBox = document.querySelector(".search-box input");
 
 const optionsList = document.querySelectorAll(".option");
 
+
 selected.addEventListener("click", () => {
   optionsContainer.classList.toggle("active");
 
@@ -34,6 +35,6 @@ const filterList = searchTerm => {
       option.style.display = "block";
     } else {
       option.style.display = "none";
-    }
+    }filterus
   });
 };

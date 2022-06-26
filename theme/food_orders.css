@@ -211,24 +211,6 @@ input.short {
     border-radius: 20px;
 }
 
-.tag {
-    background-color: bisque;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;    
-    border: solid 1px #000;
-    border-radius: 5px;
-}
-
-.about {
-    background-color: bisque;
-    border: solid 1px #d37000;
-    padding: 10px;
-    border-radius: 10px;
-    margin-right: 20px;
-    
-}
-
 .error {
     background-color: #ffcece;
     color: #721a1a;
@@ -245,20 +227,16 @@ input.short {
 
 /* Form Formatting css */
 
+.block-center{
+    margin:auto;
+}
+
 /* make height of drop downs slightly larger */
 select {
     height: 40px;
     padding: 5px;
 }
 
-/* controls input field on autocomplete boxes (pink for an error, white for OK) */
-input.tag-error[type=text] {
-    background-color: #ff9e9e;
-}
-
-input.tag-ok[type=text] {
-    background-color: #fff;
-}
 
 /* field backgrounds */
 .form-ok {
@@ -301,28 +279,7 @@ input[type=text] {
     width: 100%;
 }
 
-.gender {
-    width: 90%;
+/* Formats ingredients box */
+.select2-container--default .select2-selection--single{
+    height: 39px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

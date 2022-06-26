@@ -7,16 +7,18 @@ $fn = "";
 
 $ingredient = "start";
 $ingredient_name = "";
+$ingredient_unit = "";
+$name_unit = "";
 
 $amount = 0;
 $next_item = "yes";
 
 $ing_amount_error = "";
+$ing_amount_error_text = "";
+$ingredient_field = "form-error";
 
 $has_errors = "no";
 
-
-// Code below excutes when the form is submitted...
 
     $fn=$_REQUEST["fn"]; 
 
@@ -27,30 +29,30 @@ $has_errors = "no";
 
      $ingredient = ($_POST['ingredient']);
 
-     if($ingredient != "") {
+     if(is_numeric($ingredient) == TRUE) {
         $ingredient_name_sql = "SELECT * FROM `ingredients` WHERE `IngredientID` = $ingredient ";
         $ingredient_name_query = mysqli_query($dbconnect, $ingredient_name_sql);
         $ingredient_name_rs = mysqli_fetch_assoc($ingredient_name_query);
 
         $ingredient_name = $ingredient_name_rs["Ingredient"];
+        $ingredient_unit = $ingredient_name_rs["Units"];
+
+        $name_unit = $ingredient_name." (".$ingredient_unit.")";
      }
 
-     echo "Ingredient Index: ".$ingredient."<br />";
-     echo "Ingredient Name: ".$ingredient_name."<br />";
-
         if (is_numeric($ingredient) == FALSE OR 
-           $ingredient == "")
+           $ingredient_name == "start" OR $ingredient_name == "")
            {
             $has_errors = "yes";
             $ing_amount_error = "error-text";
-            $ingredient_field = "form-error";
+            $ingredient_field = "red";
+            $ing_amount_error_text = "Please choose an ingredient!!";
            }
 
 
         $amount = ($_POST['amount']);
 
-        if (is_numeric($amount)== FALSE OR 
-            $amount == "" OR $amount <= 0) 
+        if (is_numeric($amount)== FALSE OR $amount <= 0) 
         
             {
                 $has_errors = "yes";
@@ -69,8 +71,11 @@ $has_errors = "no";
 
                 // reset ingredient and amount
                 $ingredient = "";
+                $ingredient_name="";
+                $name_unit = "";
                 $amount = "";
-                $next_item = "yes";
+                $has_errors = "no";
+                
         }
     }  
 
@@ -95,7 +100,7 @@ $has_errors = "no";
     }
 
 
-// } // end code that executes when 'submit' button pressed
+ // } // end code that executes when 'submit' button pressed
 
 // get ingredients from database for form dropdowns...
 $get_all_sql = "SELECT * FROM recipe_ingredients JOIN ingredients ON (`ingredients`.`IngredientID` = `recipe_ingredients`.`IngredientID`) WHERE OrderID = $classID";
@@ -107,7 +112,27 @@ $ingredient_sql="SELECT * FROM `ingredients` ORDER BY `ingredients`.`Ingredient`
 $ingredient_query=mysqli_query($dbconnect, $ingredient_sql);
 $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
+// css to change ingredient box to red if there is a problem with it...
+
+if($ingredient_field == "red" AND $has_errors=="yes")
+
+{
+
 ?>
+
+<style>
+.select2-container--default .select2-selection--single{
+    background-color: #ff9e9e;
+;
+}
+
+</style>
+
+
+<?php } ?>
+
+
+<div class="block-center">
 
 <h2>Order your Ingredients</h2>
             
@@ -123,53 +148,46 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
     <!-- Start of ingredient row -->
     <div>  
 
-    <div class="<?php echo $ing_amount_error ?>">
 
-    <?php 
-        if($ingredient == "" and (is_numeric($amount) == FALSE)) {
-            ?>
-            Please choose an ingredient AND an amount
-            <?php
-        }
+    <?php if($has_errors=="yes") {?>
 
-        elseif ($ingredient == "") {
-            ?>
-            Please choose an ingredient
-            <?php
-        }
-
-
-        elseif (is_numeric($amount) == FALSE)
-        {
-            ?>
-            Your amount MUST be a number only.  It can't be blank / contain text
-            <?php
-        }
-
-    ?>
-
+    <div class="<?php echo $ing_amount_error?>">
+        Please enter both an ingredient and a valid amount
     </div>
 
+    <?php
+    }
+    ?>
+
     <!-- ingredient dropdown -->
-    <select name="ingredient" class="<?php echo $ingredient_field ?> js-example-basic-single" id="ingredient">
+    
+
+    <select name="ingredient" class="js-example-basic-single" id="ingredient">
 
     <?php
-        if($ingredient="" OR $next_item="yes") {
+        if($ingredient_name="") 
+        
+        {
     ?>
 
     <option value="" selected>Choose an ingredient...</option>
 
     <?php } 
     
-    else { ?>
+    else { 
+        ?>
 
-        <option value="<?php echo $ingredient; ?>" selected> <?php echo $ingredient_name; ?></option>
+
+    <option value="<?php echo $ingredient; ?>" selected><?php echo $name_unit ?></option>
 
     <?php 
 
     }?>
 
     <!--- get options from database -->
+
+    <option value ="">Choose an ingredient ...</option>
+
     <?php 
     do {
         ?>
@@ -230,3 +248,4 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
 </form>
 
+</div> <!-- / block-center div -->

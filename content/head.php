@@ -11,7 +11,6 @@
     <link href="https://fonts.googleapis.com/css?family=Lato%7cUbuntu" rel="stylesheet"> 
     
     <!-- Edit the name of your style sheet - 'foo' is not a valid name!! -->
-    <link rel="stylesheet" href="theme/food_orders.css"> 
     <link rel="stylesheet" href="theme/font-awesome.min.css">
     <link rel="stylesheet" href="theme/auto_complete.css">
 
@@ -23,6 +22,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <!-- JS for searching -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <link rel="stylesheet" href="theme/food_orders.css"> 
 
 
     <script>
