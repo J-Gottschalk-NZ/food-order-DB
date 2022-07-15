@@ -15,16 +15,12 @@
     <link rel="stylesheet" href="theme/auto_complete.css">
 
     <!-- *** Stuff to make dropdown searchable -->
-    <!-- JS for jQuery -->
+        <script src="select2/jquery.min.js"></script>
+        <link href="select2/select2.min.css" rel="stylesheet" />
+        <script src="select2/select2.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- CSS for searching -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- JS for searching -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+    <!-- Style sheet for page -->
     <link rel="stylesheet" href="theme/food_orders.css"> 
-
 
     <script>
         // .js-example-basic-single declare this class into your select box

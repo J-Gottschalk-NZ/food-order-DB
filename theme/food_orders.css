@@ -132,12 +132,6 @@ h1, h2, h3, h4 {
     font-family: 'Ubuntu', sans-serif;
 }
 
-.sub_heading {
-    font-family: 'Ubuntu', sans-serif;
-    color: #593849; /* purple */
-    font-weight: bold;
-}
-
 hr {
     width: 95%;
 }
@@ -148,7 +142,7 @@ p {
 
 /* ### Form / Search  Styling #### */
 
-form {
+form, .nice-middle  {
     max-width: 750px;
     margin: auto;
 }
@@ -192,14 +186,6 @@ input {
     box-sizing: border-box; 
 }
 
-input.short {
-    width: 100px;
-}
-
-.quicksearch {
-    border-radius: 5px 0 0 5px; 
-    display: inline-block;
-}
 
 /* ##### Results styling, includes 'tags' buttons ##### */
 .results {
@@ -211,6 +197,13 @@ input.short {
     border-radius: 20px;
 }
 
+td {
+    padding: 5px;
+}
+
+tr:nth-child(even) {background: #d6fff4}
+tr:nth-child(odd) {background: #FFF}
+
 .error {
     background-color: #ffcece;
     color: #721a1a;
@@ -219,10 +212,9 @@ input.short {
     border: solid 1px #721a1a;
 }
 
-/* editing tools formatting */
-.edit-tools {
-    text-align: right;
-    padding-right: 20px;
+/* Button formatting for delete page <etc> */
+button {
+    padding: 10px;
 }
 
 /* Form Formatting css */
@@ -270,6 +262,27 @@ input[type=text] {
 
 }
 
+.width-18 {
+    width: 18%;
+}
+
+.width-70 {
+    width: 70%;
+}
+
+.width-250 {
+    width: 250px;
+}
+
+.width-93px {
+    width: 93px;
+}
+
+/* Table width for managing ingredients */
+.width-100 {
+    width: 100%;
+}
+
 .amount-field {
     width: 100px;
 
@@ -278,6 +291,7 @@ input[type=text] {
 .submit-size {
     width: 100%;
 }
+
 
 /* Formats ingredients box */
 .select2-container--default .select2-selection--single{

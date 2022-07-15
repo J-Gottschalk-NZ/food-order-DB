@@ -19,8 +19,8 @@ $ingredient_field = "form-error";
 
 $has_errors = "no";
 
-    if (isset($_REQUEST["fn"]))
-        $fn=$_REQUEST["fn"]; 
+if (isset($_REQUEST["fn"]))
+    $fn=$_REQUEST["fn"]; 
 
     if ($fn == "add_order") {
      // Get data from form...
@@ -79,12 +79,12 @@ $has_errors = "no";
         }
     }  
 
-    elseif ($fn=="to_equpiment")
+    elseif ($fn=="finalise_order")
     {
-        // $q=mysqli_query($dbconnect,
-        //     "UPDATE `food_order` SET `Food_Order_Status` = 'closed' WHERE `food_order`.`ClassSessionID` = $classID; ");
+        $q=mysqli_query($dbconnect,
+            "UPDATE `food_order` SET `Food_Order_Status` = 'closed' WHERE `food_order`.`ClassSessionID` = $classID; ");
 
-            header('Location: index.php?page=add_equipment');
+            header('Location: index.php?page=order_complete');
     }
     elseif ($fn=="delingredient")
     {
@@ -108,7 +108,7 @@ $get_all_query = mysqli_query($dbconnect, $get_all_sql);
 $get_all_rs = mysqli_fetch_all($get_all_query, MYSQLI_ASSOC);
 
 
-$ingredient_sql="SELECT * FROM `ingredients` ORDER BY `ingredients`.`Ingredient` ASC ";
+$ingredient_sql="SELECT * FROM category JOIN ingredients ON (`ingredients`.`CategoryID` = `category`.`CategoryID`) WHERE `ingredients`.`CategoryID` = 14 ORDER BY `ingredients`.`Ingredient` ASC ";
 $ingredient_query=mysqli_query($dbconnect, $ingredient_sql);
 $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
@@ -132,17 +132,23 @@ if($ingredient_field == "red" AND $has_errors=="yes")
 <?php } ?>
 
 
+<div class="block-center">
+
 <div class="nice-middle">
 
-<h2>Order your Ingredients</h2>
+<h2>Order your Equipment</h2>
             
 <p>
-    Please order your ingredients (ie: ingredient and the amount).  Note the UNITS (mostly g / mL)!!
+    Please order any special equipment.  If you don't need to order anything, you can just push the I'm Done button.
+</p>
+<p>
+    <!-- Link to go back to ingredients page if necessary -->
+Need to go back and order more ingredients?  <a href="index.php?page=add_ingredients">Add them here </a>
 </p>
 
+</div>  <!-- / nice middle for start of page -->
 
-
-    <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_ingredients");?>" enctype="multipart/form-data" name="add_order" id="add_order">
+    <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_equipment");?>" enctype="multipart/form-data" name="add_order" id="add_order">
     <input type="hidden" name="fn" value="add_order">
     
     <!-- Start of ingredient row -->
@@ -152,7 +158,7 @@ if($ingredient_field == "red" AND $has_errors=="yes")
     <?php if($has_errors=="yes") {?>
 
     <div class="<?php echo $ing_amount_error?>">
-        Please enter both an ingredient and a valid amount
+        Please enter the equipment needed and a valid amount (eg: 1)
     </div>
 
     <?php
@@ -170,7 +176,7 @@ if($ingredient_field == "red" AND $has_errors=="yes")
         {
     ?>
 
-    <option value="" selected>Choose an ingredient...</option>
+    <option value="" selected>Choose equipment ...</option>
 
     <?php } 
     
@@ -182,20 +188,15 @@ if($ingredient_field == "red" AND $has_errors=="yes")
 
     <?php 
 
-    }?>
+    }
 
-    <!--- get options from database -->
-
-    <option value ="">Choose an ingredient ...</option>
-
-    <?php 
     do {
         ?>
     <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." (".$ingredient_rs['Units'].")"; ?></option>
 
     <?php
         
-    }   // end ingredient do loop
+    }   // end genre do loop
 
     while ($ingredient_rs=mysqli_fetch_assoc($ingredient_query))
 
@@ -212,6 +213,8 @@ if($ingredient_field == "red" AND $has_errors=="yes")
     <!--  End recipe / ingredients section-->
 
     <!-- Loop through ingredients in order so far... -->
+
+    <h3>Your Order So Far...</h3>
 
     <?php
     
@@ -234,13 +237,13 @@ if($ingredient_field == "red" AND $has_errors=="yes")
     
 
 
-    <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_ingredients");?>" enctype="multipart/form-data" name="finalise_order" id="add_order">
+    <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=add_equipment");?>" enctype="multipart/form-data" name="finalise_order" id="add_order">
 
-    <input type="hidden" name="fn" value="to_equpiment">
+    <input type="hidden" name="fn" value="finalise_order">
    
     <!-- Submit Button -->
     <p>
-        <input class="submit-size" type="submit" value="Next..." />
+        <input class="submit-size" type="submit" value="I'm Done!" />
     </p>
 
 </div>  <!-- / ingredient row -->
