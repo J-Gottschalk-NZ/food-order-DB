@@ -30,6 +30,8 @@ $order_rs = mysqli_fetch_all($order_query, MYSQLI_ASSOC);
 
 ?>
 
+<div class="nice-middle">
+
 <h2>Shopping Order (<?php echo $nice_start ?> - <?php echo $nice_end ?>)</h2>
 
 <table>
@@ -67,3 +69,5 @@ foreach ($order_rs as $row) {
 ?>
 
 </table>
+
+</div>

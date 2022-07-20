@@ -16,9 +16,9 @@
                         
                     ?>
                     
-                    <a href="index.php?page=../admin/adminpanel" title="Admin Panel">Admin Panel</a> | 
-                    <a href="index.php?page=../admin/class_orders" title="Class Orders">Class Orders</a> | 
-                    <a href="index.php?page=../admin/manage_ingredients" title="Manage Ingredients">Manage Ingredients</a> | 
+                    <a href="index.php?page=../admin/adminpanel" title="Admin Panel">Orders</a> | 
+                    <a href="index.php?page=../admin/manage_ingredients" title="Manage Ingredients">Ingredients</a> | 
+                    <a href="index.php?page=../admin/manage_courses" title="Manage Courses">Teachers &amp; Courses</a> | 
                     <a href="index.php?page=../admin/logout" title="Log Out">Log Out</a> | 
                    
                     

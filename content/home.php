@@ -241,7 +241,7 @@ $ingredient_rs=mysqli_fetch_assoc($ingredient_query);
 
         <?php
             
-        }   // end genre do loop
+        }   // end teacher  do loop
 
         while ($teacher_rs=mysqli_fetch_assoc($teacher_query))
 

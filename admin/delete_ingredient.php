@@ -24,6 +24,8 @@ $count = mysqli_num_rows($find_query);
 
 ?>
 
+<div class="nice-middle">
+
 <h1>Delete <?php echo $ing_name_rs['Ingredient']; ?></h1>
 
 <?php 
@@ -69,3 +71,5 @@ else {
     <button><a href = "index.php?page=../admin/manage_ingredients">Go back!</a></button>    &nbsp;
     <button><a href="index.php?page=../admin/ing_delete_sure&ingredientID=<?php echo $ingredientID; ?>">I'm sure.  Delete it.</a></button>
 </p>
+
+</div>

@@ -5,10 +5,12 @@ if(isset($_REQUEST['login'])) {
 // get usernamem from form
 $username = $_REQUEST['username'];
 
-$options = ['cost' => 9,];
+$options = ['cost' => 9,
+// 'salt' => mcrypt_create_iv(22, MCRYPT_DEV_URANDOM),
+];
     
 // Get username and hashed password from database
-$login_sql="SELECT * FROM `users` WHERE `username` = '$username'";
+$login_sql="SELECT * FROM `teacher` WHERE `username` = '$username'";
 $login_query=mysqli_query($dbconnect,$login_sql);
 $login_rs = mysqli_fetch_assoc($login_query);
 

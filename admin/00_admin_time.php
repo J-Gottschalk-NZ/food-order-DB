@@ -11,7 +11,8 @@ do {
     $start = microtime(true);
     
     // password below is admin.  Change it desired
-    $hashed = password_hash("admin", PASSWORD_BCRYPT, ["cost" => $cost]);
+    $hashed = password_hash("FoodBoss1!", PASSWORD_BCRYPT, ["cost" => $cost]);
+    echo $hashed;
     
     
     $end = microtime(true);
@@ -19,7 +20,7 @@ do {
 
 echo "Appropriate Cost Found: " . $cost."<br />";
 
-echo "Password Hash: ".$hashed
+echo "Password Hash: ".$hashed;
 
     
 

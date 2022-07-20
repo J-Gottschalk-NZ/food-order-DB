@@ -212,6 +212,32 @@ tr:nth-child(odd) {background: #FFF}
     border: solid 1px #721a1a;
 }
 
+/* Period Styling for day order page */
+.period {
+    padding: 5px;
+    width: 75%;
+}
+
+.period-1 {
+    background-color: #ffe4b8;
+}
+
+.period-2 {
+    background-color: #fdbeec;
+}
+
+.period-3 {
+    background-color: #b6b5ff;
+}
+
+.period-4 {
+    background-color: #e0e0e0;
+}
+
+.period-5 {
+    background-color: #9fffc5;
+}
+
 /* Button formatting for delete page <etc> */
 button {
     padding: 10px;
