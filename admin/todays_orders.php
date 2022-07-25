@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -14,17 +14,11 @@ if($date=="") {
 
 $nice_date = date("D j M", strtotime($date));
 
-// Get teacher name based on ID
-// $teacher_name_sql = "SELECT * FROM `teacher` WHERE `TeacherID` = $teacherID ";
-// $teacher_name_query = mysqli_query($dbconnect, $teacher_name_sql);
-// $teacher_name_rs = mysqli_fetch_assoc($teacher_name_query);
-
-
 // Find orders matching date, period and teacher
 $order_sql = "SELECT * FROM `classsession` 
 INNER JOIN teacher ON (`classsession`.`TeacherID` = `teacher`.`TeacherID`)
 INNER JOIN food_order ON (`food_order`.`ClassSessionID` = `classsession`.`ClassSessionID`) 
-INNER JOIN recipe_ingredients ON ( `food_order`.`OrderID` = `recipe_ingredients`.`OrderID`)
+INNER JOIN recipe_ingredients ON ( `food_order`.`ClassSessionID` = `recipe_ingredients`.`OrderID`)
 INNER JOIN ingredients ON ( `recipe_ingredients`.`IngredientID` = `ingredients`.`IngredientID`)
 
 WHERE `Date` = '$date' 

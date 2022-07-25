@@ -1,10 +1,10 @@
 <?php
 
-ini_set('display_errors', 'On');  // change to 'Off' when live
+ini_set('display_errors', 'Off');  // change to 'Off' when live
 
-define ("DB_NAME","00_Food_Orders"); 
-define ("DB_USERNAME","root");
-define ("DB_PASSWORD",""); 
-define ("DB_HOST","localhost");
+define('DB_NAME', 'foodorders');
+define('DB_USER', 'foodorders');
+define('DB_PASSWORD', 'ZywhPti9ds3D');
+define('DB_HOST', '127.0.0.1:3306');
 
 ?>

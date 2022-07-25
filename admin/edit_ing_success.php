@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -17,6 +17,16 @@ WHERE `Ingredient` LIKE '$new_ing_name'
 $new_ing_success_query = mysqli_query($dbconnect, $new_ing_success_sql);
 $new_ing_success_rs = mysqli_fetch_assoc($new_ing_success_query);
 
+if ($new_ing_success_rs['Units'] == "")
+{
+    $display_units = "";
+}
+
+else {
+    $display_units = "(".$new_ing_success_rs['Units'].")";
+}
+
+
 ?>
 
 <h2>Ingredient Successfully Edited</h2>
@@ -27,5 +37,5 @@ $new_ing_success_rs = mysqli_fetch_assoc($new_ing_success_query);
 <p>
 Category: <b><?php echo $new_ing_success_rs['Category']?></b><br />
 Ingredient: 
-<b><?php echo $new_ing_success_rs['Ingredient']?> (<?php echo $new_ing_success_rs['Units'];?>)</b>
+<b><?php echo $new_ing_success_rs['Ingredient']?> <?php echo $display_units ?></b>
 </p>

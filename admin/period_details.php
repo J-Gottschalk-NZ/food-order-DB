@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -21,7 +21,7 @@ $teacher_name_rs = mysqli_fetch_assoc($teacher_name_query);
 // Find orders matching date, period and teacher
 $order_sql = "SELECT SUM(Quantity), `ingredients`.`Ingredient`, `ingredients`.`Units` FROM classsession 
 INNER JOIN food_order ON (`food_order`.`ClassSessionID` = `classsession`.`ClassSessionID`) 
-INNER JOIN recipe_ingredients ON ( `food_order`.`OrderID` = `recipe_ingredients`.`OrderID`)
+INNER JOIN recipe_ingredients ON ( `food_order`.`ClassSessionID` = `recipe_ingredients`.`OrderID`)
 INNER JOIN ingredients ON ( `recipe_ingredients`.`IngredientID` = `ingredients`.`IngredientID`)
 WHERE `Date` = '$date' AND TeacherID = $teacherID AND `Period` = $period
 GROUP BY `recipe_ingredients`.`IngredientID`
@@ -38,7 +38,7 @@ if($count > 0) {
 
 $tray_sql = "SELECT * FROM classsession 
 INNER JOIN food_order ON (`food_order`.`ClassSessionID` = `classsession`.`ClassSessionID`) 
-INNER JOIN recipe_ingredients ON ( `food_order`.`OrderID` = `recipe_ingredients`.`OrderID`)
+INNER JOIN recipe_ingredients ON ( `food_order`.`ClassSessionID` = `recipe_ingredients`.`OrderID`)
 INNER JOIN ingredients ON ( `recipe_ingredients`.`IngredientID` = `ingredients`.`IngredientID`)
 WHERE `Date` = '$date' AND TeacherID = $teacherID AND `Period` = $period
 GROUP BY `food_order`.`LastName`
@@ -84,7 +84,9 @@ foreach ($order_rs as $row) {
     <?php
 
     $arr = $row;
-    echo array_values($arr)[0]."&nbsp; &nbsp;";
+    $sum_quantity = array_values($arr)[0];
+    // echo array_values($arr)[0]."&nbsp; &nbsp;";
+    echo round($sum_quantity, 1);
     echo $row["Units"]."&nbsp; &nbsp;";
     echo $row["Ingredient"]."&nbsp; &nbsp;";
     echo "<br />";
@@ -130,6 +132,24 @@ do {
 
 <br /><br />
 
+<?php
+if ($tray_rs['Comment'] != "") {
+
+
+    $show_comment = str_replace("\n", "<br />", $tray_rs['Comment']);
+
+    ?>
+
+    <div class="blue">
+
+    <?php echo $show_comment; ?>
+
+</div>
+
+    <?php
+}
+?>
+
 
 <?php
     $orderID = $tray_rs['OrderID'];
@@ -153,7 +173,7 @@ do {
     ?>
 
 <tr><td>
-    <?php echo $ing_ordered_rs['Ingredient']?>: <?php echo$ing_ordered_rs['Quantity'].$ing_ordered_rs['Units'];?>
+    <?php echo $ing_ordered_rs['Ingredient']?>: <?php echo round($ing_ordered_rs['Quantity'], 1).$ing_ordered_rs['Units'];?>
 </td></tr>
 
 <?php

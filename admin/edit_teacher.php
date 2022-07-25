@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $edit_query = mysqli_query($dbconnect, $edit_sql);
 
     // Go back to manage teacher page
-    header('Location: index.php?page=../admin/manage_teachers');
+    header('Location: index.php?page=../admin/manage_courses');
     }
 
 } // end code that executes when submit button is pressed

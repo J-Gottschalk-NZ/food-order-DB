@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -66,7 +66,7 @@ else {
 <br />
 
 <p>
-    <button><a href = "index.php?page=../admin/manage_ingredients">Go back!</a></button>    &nbsp;
+    <button><a href = "index.php?page=../admin/manage_courses">Go back!</a></button>    &nbsp;
     <button><a href="index.php?page=../admin/course_delete_sure&subjectID=<?php echo $subjectID; ?>">I'm sure.  Delete it.</a></button>
 </p>
 

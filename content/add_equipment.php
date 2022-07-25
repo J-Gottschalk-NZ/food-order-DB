@@ -1,5 +1,10 @@
 <?php
 
+// send user to home page if they are trying to hack in.
+if (!isset($_SESSION['Order_Session'])) {
+    header("Location: index.php");
+}
+
 // Initialise variables
 $classID = $_SESSION['Order_Session'];
 
@@ -191,8 +196,19 @@ Need to go back and order more ingredients?  <a href="index.php?page=add_ingredi
     }
 
     do {
+
+        if ($ingredient_rs['Units'] == "")
+        {
+            $display_units = "";
+        }
+        
+        else {
+            $display_units = "(".$ingredient_rs['Units'].")";
+        }
+
+
         ?>
-    <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." (".$ingredient_rs['Units'].")"; ?></option>
+    <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." ".$display_units; ?></option>ion>
 
     <?php
         
@@ -224,7 +240,7 @@ Need to go back and order more ingredients?  <a href="index.php?page=add_ingredi
         echo "<tr><td>".
             $row["Ingredient"].
             "</td><td>".
-            $row["Quantity"]." ".
+            round($row["Quantity"], 1)." ".
             $row["Units"].
             "</td><td>".
             "<a href=".htmlspecialchars($_SERVER["PHP_SELF"]).
@@ -243,7 +259,7 @@ Need to go back and order more ingredients?  <a href="index.php?page=add_ingredi
    
     <!-- Submit Button -->
     <p>
-        <input class="submit-size" type="submit" value="I'm Done!" />
+        <input class="submit-size" type="submit" value="Finish &amp; Confirm..." />
     </p>
 
 </div>  <!-- / ingredient row -->

@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -52,12 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $has_errors = "yes";
         $new_cat_error = "error-text";
         $new_cat_field = "form-error";
-    }
-
-    if ($new_ing_unit=="") {
-        $has_errors = "yes";
-        $new_unit_error = "error-text";
-        $new_unit_field = "form-error";
     }
 
     // if there are no errors, add ingredient!!
@@ -201,7 +195,7 @@ $categories_rs = mysqli_fetch_assoc($categories_query);
         <option value="g">g</option>
         <option value="mL">mL</option>
         <option value="sheet/s">Sheet/s</option>
-        <option value="-">None (-)</option>
+        <option value="">None (-)</option>
     </select>
 
     <!-- Submit Button -->

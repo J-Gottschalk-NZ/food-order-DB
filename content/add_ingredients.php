@@ -1,5 +1,10 @@
 <?php
 
+// send user to home page if they are trying to hack in.
+if (!isset($_SESSION['Order_Session'])) {
+    header("Location: index.php");
+}
+
 // Initialise variables
 $classID = $_SESSION['Order_Session'];
 
@@ -28,7 +33,7 @@ $has_errors = "no";
      $next_item = "no";
 
      $ingredient = ($_POST['ingredient']);
-
+     
      if(is_numeric($ingredient) == TRUE) {
         $ingredient_name_sql = "SELECT * FROM `ingredients` WHERE `IngredientID` = $ingredient ";
         $ingredient_name_query = mysqli_query($dbconnect, $ingredient_name_sql);
@@ -51,7 +56,7 @@ $has_errors = "no";
 
 
         $amount = ($_POST['amount']);
-
+        
         if (is_numeric($amount)== FALSE OR $amount <= 0) 
         
             {
@@ -190,8 +195,19 @@ if($ingredient_field == "red" AND $has_errors=="yes")
 
     <?php 
     do {
+
+        if ($ingredient_rs['Units'] == "")
+        {
+            $display_units = "";
+        }
+        
+        else {
+            $display_units = "(".$ingredient_rs['Units'].")";
+        }
+        
+
         ?>
-    <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." (".$ingredient_rs['Units'].")"; ?></option>
+    <option value="<?php echo $ingredient_rs['IngredientID']; ?>"><?php echo $ingredient_rs['Ingredient']." ".$display_units; ?></option>
 
     <?php
         
@@ -221,7 +237,7 @@ if($ingredient_field == "red" AND $has_errors=="yes")
         echo "<tr><td>".
             $row["Ingredient"].
             "</td><td>".
-            $row["Quantity"]." ".
+            round($row["Quantity"], 1)." ".
             $row["Units"].
             "</td><td>".
             "<a href=".htmlspecialchars($_SERVER["PHP_SELF"]).

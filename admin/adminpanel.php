@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -101,10 +101,15 @@ if ($fn=="old_prac")
 Please choose an option below...
 </p>
 
-</div>
+
 
 <hr />
 
+  <h2><a href="index.php?page=teacher_orders">Add an Order</a> </h2>
+
+<hr />
+
+</div>
 
 <form autocomplete="off" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]."?page=../admin/shopping");?>" enctype="multipart/form-data" name="shopping" id="shopping">
     <input type="hidden" name = "fn" value="shopping">
@@ -208,7 +213,7 @@ Date: <input class="<?php echo $date_field; ?>" type="date" name="prac_date" val
     <!-- Hidden field so that when form is submitted, we can error check -->
     <input type="hidden" name="fn" value="old_prac">
 
-<h2>Delete Orders</h2>
+<h2>Delete Old Orders</h2>
 
 <p><i>Delete old orders.</i></p>
 

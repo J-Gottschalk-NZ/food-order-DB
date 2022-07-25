@@ -20,88 +20,101 @@ body {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: auto;
-    grid-template-areas: 
-        "banner nav"
-        "main main"
-        "footer footer";
-        grid-gap: 4px;
-    
-}
-
-@media only screen and (max-width: 1100px) {
-    .wrapper{
-    grid-template-columns: auto;
+    grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
         "banner"
         "nav"
         "main"
         "footer";
+        grid-gap: 4px;
     }
+
+    .banner {
+        grid-area: banner;
+        background-color: #000;
+    }
+    
+    .nav {
+        grid-area: nav;
+        background-color: #DDD;  /* silver */
+        font-size: 120%;
+        border: solid 1px;
+    }
+    
+    .main {
+        grid-area: main;
+        background-color: #a6ddcf;  /* very pale grey */
+        border: solid 1px #CCC;
+    }
+    
+    
+    .footer {
+        grid-area: footer;
+        text-align: right;
+        padding: 20px;
+    }
+    
+
+.logo-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.banner {
-    grid-area: banner;
-}
-
-.nav {
-    grid-area: nav;
-    background-color: #DDD;  /* silver */
-    font-size: 150%;
-    padding: 20px;
-    vertical-align: middle;
-    border: solid 1px;
-}
-
-.main {
-    grid-area: main;
-    background-color: #a6ddcf;  /* very pale grey */
-    border: solid 1px #CCC;
+.title-text {
+    padding-left: 20px;
 }
 
 
-.footer {
-    grid-area: footer;
-    text-align: right;
-    padding: 20px;
+/* Styles navigation links (mostly for admin) */
+.linkwrapper {
+
+    padding: 10px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    /* display: grid;
+    grid-template-columns: 1fr 300px 200px;
+    grid-template-areas: 
+        "tools quicksearch logout";
+    grid-gap: 4px; */
 }
 
 
-/* Make navigation responsive... */
 
-@media only screen and (max-width: 900px) {
-    .linkwrapper{
-    grid-template-columns: auto;
+.login-wrapper {
+    display: grid;
+    grid-template-columns: 49% 49%;
     grid-template-rows: auto;
     grid-template-areas: 
-        "commonsearches commonsearches"
-        "topsearch topadmin"
-        ;
-    }
-    
-    .commonsearches {
-        text-align: left;
-    }
-    
-    .topsearch {
-        text-align: left;
-    }
-    
-    .topadmin {
-        text-align: right;
-    }
-    
+    "student-login teacher-login";
+    grid-gap: 20px;
+    padding: 20px;
+    margin: auto;    
 }
+
+.student-login {
+    grid-area: student-login;
+    background-color: white;
+    padding: 10px;
+}
+
+.teacher-login {
+    grid-area: teacher-login;
+    background-color: peachpuff;
+    padding: 10px;
+}
+
+
 
 /* ### Additional div styling (put colours / corners here) */
 
-
-/* Area colouring... */
-
 /* logo, banner and footer background are the same */
-.banner, .footer {
+.footer {
      background-color: #888; /* dark grey */
 }
 
@@ -147,6 +160,11 @@ form, .nice-middle  {
     margin: auto;
 }
 
+form.quick {
+    margin: none;
+    max-width: 400px;
+}
+
 .search {
     background:#fff;
     width: 200px;
@@ -164,7 +182,7 @@ form, .nice-middle  {
     font-size: 14px;
     
     left:-5px;
-    background-color: #636263; 
+    background-color: #000; 
     color:#d6d3d7;
     border: 1px solid #000;
     border-radius: 0 5px 5px 0;   
@@ -175,6 +193,7 @@ form, .nice-middle  {
 
 input[type="submit"]:hover {
     background-color: #ffd575;
+    color: #000;
 }
 
 
@@ -210,6 +229,11 @@ tr:nth-child(odd) {background: #FFF}
     border-radius: 10px;
     padding: 10px;
     border: solid 1px #721a1a;
+}
+
+.blue {
+    background-color: #00c1b4;
+    padding: 10px;
 }
 
 /* Period Styling for day order page */
@@ -282,6 +306,9 @@ input[type=text] {
     margin: auto;
 }
 
+.comment-text {
+    width: 90%;
+}
 
 .add-field {
     width: 90%;
@@ -322,4 +349,17 @@ input[type=text] {
 /* Formats ingredients box */
 .select2-container--default .select2-selection--single{
     height: 39px;
+}
+
+@media only screen and (max-width: 1100px) {
+
+    .login-wrapper {
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "student-login"
+        "teacher-login"
+        ;
+    }
+
 }

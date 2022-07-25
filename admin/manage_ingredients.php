@@ -2,7 +2,7 @@
 
 // check user is logged in, if they are not go back to login page
 if (!isset($_SESSION['admin'])) {
-    header('Location: index.php?page=../admin/login');
+    header('Location: index.php');
 
 }
 
@@ -64,10 +64,22 @@ else {
 
 <table>
 
-<?php do { ?>
+<?php do { 
+    
+    if ($ingredient_rs['Units'] == "")
+    {
+        $display_units = "";
+    }
+    
+    else {
+        $display_units = "(".$ingredient_rs['Units'].")";
+    }
+    
+    ?>
+
 
 <tr>
-    <td><?php echo $ingredient_rs['Ingredient']?> (<?php echo $ingredient_rs['Units']?>)</td>
+    <td><?php echo $ingredient_rs['Ingredient']?> <?php echo $display_units; ?></td>
     <td><a href="index.php?page=../admin/edit_ingredient&ingredientID=<?php echo $ingredient_rs['IngredientID']?>">Edit</a></td>
     <td><a href="index.php?page=../admin/delete_ingredient&ingredientID=<?php echo $ingredient_rs['IngredientID']?>">Delete</a></td>
 </tr>
